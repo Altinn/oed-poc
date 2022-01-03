@@ -5,8 +5,6 @@ using Altinn.ApiClients.Maskinporten.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 /************************************************************************************************/
 
 // Her hentes innstillinger for data.altinn.no, som er valgt miljø ("dev", "staging", "prod") samt subscription key for det aktuelle DAN-miljøet
@@ -19,7 +17,11 @@ builder.Services.Configure<MaskinportenSettings<SettingsJwkClientDefinition>>(bu
 
 // Dette tilgjengeliggjør en IDanClient for dependency injection for konfigurasjonen som er oppgitt
 // Se Pages/Index.cshtml.cs for eksempel på hvordan denne er brukt
-builder.Services.AddDanClient<SettingsJwkClientDefinition>();
+builder.Services.AddDanClient<SettingsJwkClientDefinition>(sp => new DanConfiguration
+{
+    // Bruk Newtonsoft.Json i stedet for System.Text.Json
+    Deserializer = new JsonNetDeserializer()
+});
 
 
 // (Alt før og etter denne bolken er boilerplate for poc-webappen.) 

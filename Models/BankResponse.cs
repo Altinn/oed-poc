@@ -1,5 +1,7 @@
 ﻿namespace dan_oed_poc_razor.Models
 {
+    using External;
+
     public class BankResponse
     {
         public List<BankInfo> BankAccounts { get; set; } = new();
@@ -18,8 +20,8 @@
     public class Account
     {
         public string AccountNumber { get; set; } = string.Empty; // Seperate property by now. Copy of AccountDetail.AccountIdentifier
-        //public AccountDetail AccountDetail { get; set; } // Not mapped to internal by now
-        //public ICollection<Transaction> Transactions { get; set; } // Not mapped to internal by now
+        public AccountDetail AccountDetail { get; set; } // Not mapped to internal by now
+        public ICollection<Transaction> Transactions { get; set; } // Not mapped to internal by now
         public double AccountBalance { get; set; } = 0;
     }
 
